@@ -1,0 +1,12 @@
+rvm:
+  - 1.9.3
+  - 2.0.0
+  - 2.1.0
+  - 2.1.1
+
+script: 'bundle exec rake spec'
+
+notifications:
+  disabled: false
+  recipients:
+    - johannes.opper@gmail.com
