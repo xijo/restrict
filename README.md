@@ -17,7 +17,7 @@ Works with rails 3 and 4 and all versions every ruby 2.
 ```ruby
 class GoodiesController < ApplicationController
   restrict :take
-  restrict :delete, if: :goodie_manager?
+  restrict :delete, allow_if: :goodie_manager?
 
   def take
     # Grab a goodie
