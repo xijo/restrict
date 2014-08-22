@@ -7,6 +7,7 @@ require 'denied/access_denied'
 require 'denied/restriction'
 require 'denied/gatekeeper'
 require 'denied/rails/controller'
+require 'denied/rails/railtie' if defined?(Rails)
 
 module Denied
   # Your code goes here...
