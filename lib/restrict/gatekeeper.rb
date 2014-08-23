@@ -1,4 +1,4 @@
-module Denied
+module Restrict
   class Gatekeeper
     def eye(controller)
       restriction = current_restriction(controller)
@@ -8,11 +8,11 @@ module Denied
     private
 
     def handle_restriction(restriction, controller)
-      controller.current_user or raise Denied::LoginRequired
+      controller.current_user or raise Restrict::LoginRequired
 
       if restriction.allow_if
         unless controller.__send__(restriction.allow_if)
-          raise Denied::AccessDenied, reason: restriction
+          raise Restrict::AccessDenied, reason: restriction
         end
       end
     end

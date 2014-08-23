@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in denied.gemspec
+# Specify your gem's dependencies in restrict.gemspec
 gemspec

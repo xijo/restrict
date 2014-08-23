@@ -1,4 +1,4 @@
-module Denied
+module Restrict
   module Rails
     module Controller
       extend ActiveSupport::Concern
@@ -12,14 +12,14 @@ module Denied
       module ClassMethods
         def restrict(*args)
           self.restrictions ||= []
-          restrictions << Denied::Restriction.new(*args)
+          restrictions << Restrict::Restriction.new(*args)
         end
       end
 
       private
 
       def invoke_gatekeeper
-        Denied::Gatekeeper.new.eye(self)
+        Restrict::Gatekeeper.new.eye(self)
       end
     end
   end

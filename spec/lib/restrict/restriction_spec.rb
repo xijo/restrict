@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Denied::Restriction do
-  let(:restriction) { Denied::Restriction.new(:show, :edit, role: :manager) }
+describe Restrict::Restriction do
+  let(:restriction) { Restrict::Restriction.new(:show, :edit, role: :manager) }
 
   describe '#initialize' do
     it 'knows about its actions' do
@@ -9,7 +9,7 @@ describe Denied::Restriction do
     end
 
     it 'raises an error if no actions were given' do
-      expect { Denied::Restriction.new }.to raise_error(ArgumentError)
+      expect { Restrict::Restriction.new }.to raise_error(ArgumentError)
     end
   end
 
@@ -29,7 +29,7 @@ describe Denied::Restriction do
     end
 
     it 'returns nil if non was given' do
-      expect(Denied::Restriction.new(:foo).role).to be_nil
+      expect(Restrict::Restriction.new(:foo).role).to be_nil
     end
   end
 

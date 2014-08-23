@@ -1,4 +1,4 @@
-module Denied
+module Restrict
   class Restriction
     attr_accessor :actions, :role, :allow_if
 

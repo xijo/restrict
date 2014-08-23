@@ -11,8 +11,8 @@ SimpleCov.profiles.define 'gem' do
 end
 SimpleCov.start 'gem'
 
-require 'denied'
-require 'denied/rspec/matcher'
+require 'restrict'
+require 'restrict/rspec/matcher'
 
 RSpec.configure do |config|
   config.after do
@@ -34,7 +34,7 @@ end
 FakeUser = Struct.new(:foo)
 
 class ExampleController < FakeController
-  include Denied::Rails::Controller
+  include Restrict::Rails::Controller
 
   def falsy
     false

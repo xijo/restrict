@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Denied::Gatekeeper do
+describe Restrict::Gatekeeper do
 
-  let(:gatekeeper) { Denied::Gatekeeper.new }
+  let(:gatekeeper) { Restrict::Gatekeeper.new }
   let(:controller) { ExampleController.new }
   let(:user)       { FakeUser.new }
 
@@ -24,7 +24,7 @@ describe Denied::Gatekeeper do
       before { controller.class.restrict :edit }
 
       it 'denies anonymous access' do
-        expect { gatekeeper.eye(controller) }.to raise_error(Denied::LoginRequired)
+        expect { gatekeeper.eye(controller) }.to raise_error(Restrict::LoginRequired)
       end
 
       it 'grants user access' do
@@ -48,13 +48,13 @@ describe Denied::Gatekeeper do
 
       it 'denies anonymous access' do
         controller.action_name = 'action1'
-        expect { gatekeeper.eye(controller) }.to raise_error(Denied::LoginRequired)
+        expect { gatekeeper.eye(controller) }.to raise_error(Restrict::LoginRequired)
       end
 
       it 'denies access on falsy return value' do
         controller.current_user = user
         controller.action_name = 'action2'
-        expect { gatekeeper.eye(controller) }.to raise_error(Denied::AccessDenied)
+        expect { gatekeeper.eye(controller) }.to raise_error(Restrict::AccessDenied)
       end
 
       it 'grants access on truthy return value' do

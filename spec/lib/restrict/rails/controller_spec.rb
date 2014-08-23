@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Denied::Rails::Controller do
+describe Restrict::Rails::Controller do
 
   let(:controller) { ExampleController.new }
 
@@ -27,7 +27,7 @@ describe Denied::Rails::Controller do
 
   describe '#invoke_gatekeeper' do
     it 'builds and calls a gatekeeper for the controller' do
-      expect_any_instance_of(Denied::Gatekeeper).to receive(:eye).with(controller)
+      expect_any_instance_of(Restrict::Gatekeeper).to receive(:eye).with(controller)
       controller.__send__ :invoke_gatekeeper
     end
   end
