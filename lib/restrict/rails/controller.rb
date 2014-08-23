@@ -4,8 +4,7 @@ module Restrict
       extend ActiveSupport::Concern
 
       included do
-        cattr_accessor :restrictions
-        self.restrictions ||= []
+        class_attribute :restrictions
         before_filter :invoke_gatekeeper
       end
 

@@ -1,8 +1,9 @@
 module Restrict
   class Gatekeeper
     def eye(controller)
-      restriction = current_restriction(controller)
-      restriction and handle_restriction(restriction, controller)
+      Array(concerning_restrictions(controller)).each do |restriction|
+        handle_restriction(restriction, controller)
+      end
     end
 
     private
@@ -17,9 +18,9 @@ module Restrict
       end
     end
 
-    def current_restriction(controller)
+    def concerning_restrictions(controller)
       controller.restrictions or return
-      controller.restrictions.find do |restriction|
+      controller.restrictions.select do |restriction|
         restriction.concerning?(controller.action_name)
       end
     end

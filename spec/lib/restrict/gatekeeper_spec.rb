@@ -63,5 +63,17 @@ describe Restrict::Gatekeeper do
         expect { gatekeeper.eye(controller) }.not_to raise_error
       end
     end
+
+    context 'with multiple restrictions' do
+      before do
+        controller.class.restrict :all_actions
+        controller.class.restrict :edit, allow_if: :falsy
+      end
+
+      it 'denies access if any restriction fails' do
+        controller.current_user = user
+        expect { gatekeeper.eye(controller) }.to raise_error(Restrict::AccessDenied)
+      end
+    end
   end
 end
