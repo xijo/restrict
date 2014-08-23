@@ -4,7 +4,7 @@ RSpec::Matchers.define :have_restriction_on do |given_action_name|
     @given_controller = given_controller
 
     @restriction = given_controller.restrictions.find do |restriction|
-      restriction.restricts?(given_action_name)
+      restriction.concerning?(given_action_name)
     end
 
     if @restriction
@@ -38,6 +38,7 @@ RSpec::Matchers.define :have_restriction_on do |given_action_name|
     end
   end
 
+  # :nocov:
   def description
     "Checks if a restriction for a given action is defined on the controller"
   end

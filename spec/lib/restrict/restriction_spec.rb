@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Restrict::Restriction do
-  let(:restriction) { Restrict::Restriction.new(:show, :edit, role: :manager) }
+  let(:restriction) { Restrict::Restriction.new(:show, :edit) }
 
   describe '#initialize' do
     it 'knows about its actions' do
@@ -13,24 +13,23 @@ describe Restrict::Restriction do
     end
   end
 
-  describe '#restricts?' do
+  describe '#concerning?' do
     it 'returns true if the given action is contained' do
-      expect(restriction).to be_restricts(:show)
+      expect(restriction).to be_concerning(:show)
+    end
+
+    it 'returns true if the given name is a string' do
+      expect(restriction).to be_concerning('show')
     end
 
     it 'returns false if the given action name is not contained' do
-      expect(restriction).not_to be_restricts(:index)
+      expect(restriction).not_to be_concerning(:index)
+    end
+
+    it 'returns true if it concerns :all_actions' do
+      restriction = Restrict::Restriction.new(:all_actions)
+      expect(restriction).to be_concerning(:foo)
+      expect(restriction).to be_concerning(:bar)
     end
   end
-
-  describe '#role' do
-    it 'returns the role name if given' do
-      expect(restriction.role).to eq :manager
-    end
-
-    it 'returns nil if non was given' do
-      expect(Restrict::Restriction.new(:foo).role).to be_nil
-    end
-  end
-
 end

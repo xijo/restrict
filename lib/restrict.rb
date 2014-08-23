@@ -1,6 +1,7 @@
 require 'active_support'
 
 require 'restrict/version'
+require 'restrict/configuration'
 require 'restrict/error'
 require 'restrict/login_required'
 require 'restrict/access_denied'
@@ -10,5 +11,10 @@ require 'restrict/rails/controller'
 require 'restrict/rails/railtie' if defined?(Rails)
 
 module Restrict
-  # Your code goes here...
+
+  def self.config(&block)
+    @configuration ||= Restrict::Configuration.new
+    block_given? ? yield(@configuration) : @configuration
+  end
+
 end

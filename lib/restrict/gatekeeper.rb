@@ -20,7 +20,7 @@ module Restrict
     def current_restriction(controller)
       controller.restrictions or return
       controller.restrictions.find do |restriction|
-        restriction.restricts?(controller.action_name)
+        restriction.concerning?(controller.action_name)
       end
     end
   end
