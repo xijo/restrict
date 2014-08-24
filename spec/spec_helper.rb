@@ -22,16 +22,18 @@ end
 
 # Mimics the behavior of ActionController::Base
 class FakeController
-  attr_accessor :action_name, :current_user
+  attr_accessor :action_name, :user_signed_in
   cattr_accessor :before_filters
+
+  def user_signed_in?
+    !!@user_signed_in
+  end
 
   def self.before_filter(filter)
     self.before_filters ||= []
     before_filters << filter
   end
 end
-
-FakeUser = Struct.new(:foo)
 
 class ExampleController < FakeController
   include Restrict::Rails::Controller

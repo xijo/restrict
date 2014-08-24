@@ -5,13 +5,19 @@ module Restrict
 
       included do
         class_attribute :restrictions
-        before_filter :invoke_gatekeeper
       end
 
       module ClassMethods
         def restrict(*args)
+          install_gatekeeper
           self.restrictions ||= []
           restrictions << Restrict::Restriction.new(*args)
+        end
+
+        def install_gatekeeper
+          return if @gatekeeper_installed
+          before_filter :invoke_gatekeeper
+          @gatekeeper_installed = true
         end
       end
 

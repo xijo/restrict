@@ -4,7 +4,6 @@ describe Restrict::Gatekeeper do
 
   let(:gatekeeper) { Restrict::Gatekeeper.new }
   let(:controller) { ExampleController.new }
-  let(:user)       { FakeUser.new }
 
   before { controller.action_name = 'edit' }
 
@@ -15,7 +14,7 @@ describe Restrict::Gatekeeper do
       end
 
       it 'grants user access' do
-        controller.current_user = user
+        controller.user_signed_in = true
         expect { gatekeeper.eye(controller) }.not_to raise_error
       end
     end
@@ -28,7 +27,7 @@ describe Restrict::Gatekeeper do
       end
 
       it 'grants user access' do
-        controller.current_user = user
+        controller.user_signed_in = true
         expect { gatekeeper.eye(controller) }.not_to raise_error
       end
     end
@@ -41,7 +40,7 @@ describe Restrict::Gatekeeper do
       end
 
       it 'raises on missing method' do
-        controller.current_user = user
+        controller.user_signed_in = true
         controller.action_name = 'action1'
         expect { gatekeeper.eye(controller) }.to raise_error(NoMethodError)
       end
@@ -52,13 +51,13 @@ describe Restrict::Gatekeeper do
       end
 
       it 'denies access on falsy return value' do
-        controller.current_user = user
+        controller.user_signed_in = true
         controller.action_name = 'action2'
         expect { gatekeeper.eye(controller) }.to raise_error(Restrict::AccessDenied)
       end
 
       it 'grants access on truthy return value' do
-        controller.current_user = user
+        controller.user_signed_in = true
         controller.action_name = 'action3'
         expect { gatekeeper.eye(controller) }.not_to raise_error
       end
@@ -71,7 +70,7 @@ describe Restrict::Gatekeeper do
       end
 
       it 'denies access if any restriction fails' do
-        controller.current_user = user
+        controller.user_signed_in = true
         expect { gatekeeper.eye(controller) }.to raise_error(Restrict::AccessDenied)
       end
     end

@@ -8,8 +8,13 @@ module Restrict
 
     private
 
+    def validate_signed_in(controller)
+      method = Restrict.config.authentication_validation_method
+      controller.__send__(method) or raise Restrict::LoginRequired
+    end
+
     def handle_restriction(restriction, controller)
-      controller.current_user or raise Restrict::LoginRequired
+      validate_signed_in(controller)
 
       if restriction.allow_if
         unless controller.__send__(restriction.allow_if)

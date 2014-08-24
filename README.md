@@ -37,9 +37,9 @@ end
 
 What that does:
   1. Any anonymous access to one of both methods will raise `Restrict::LoginRequired`
-  2. If a `current_user` exists the access to take is allowed
-  3. If a `current_user` exists but `goodie_manager?` returns false, then `Restrict::AccessDenied` will be raised
-  4. If a `current_user` exists and `goodie_manager?` is true, the access is allowed
+  2. If `user_signed_in?` the access to take is allowed
+  3. If `user_signed_in?` but `goodie_manager?` returns false, then `Restrict::AccessDenied` will be raised
+  4. If `user_signed_in?` and `goodie_manager?` is true, the access is allowed
 
 ### Restrict all actions
 
@@ -53,7 +53,7 @@ This one will apply to all actions on this controller. It takes the `allow_if` o
 
 ```ruby
 # Default is :user_signed_in?
-Restrict.config.authentication_validation_method = :current_user
+Restrict.config.authentication_validation_method = :admin_session_exists?
 ```
 
 You may set the method that is used to figure out whether a user is signed in or not to whatever you like, however it's default is `:user_signed_in?` which is the most common (devise) method in use.
