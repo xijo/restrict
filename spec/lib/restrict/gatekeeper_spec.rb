@@ -34,9 +34,9 @@ describe Restrict::Gatekeeper do
 
     context 'with conditional restriction' do
       before do
-        controller.class.restrict :action1, allow_if: :missing
-        controller.class.restrict :action2, allow_if: :falsy
-        controller.class.restrict :action3, allow_if: :truthy
+        controller.class.restrict :action1, unless: :missing
+        controller.class.restrict :action2, unless: :falsy
+        controller.class.restrict :action3, unless: :truthy
       end
 
       it 'raises on missing method' do
@@ -66,7 +66,7 @@ describe Restrict::Gatekeeper do
     context 'with multiple restrictions' do
       before do
         controller.class.restrict :all_actions
-        controller.class.restrict :edit, allow_if: :falsy
+        controller.class.restrict :edit, unless: :falsy
       end
 
       it 'denies access if any restriction fails' do

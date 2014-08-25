@@ -1,3 +1,6 @@
+[0.0.6] - 2014-08-25
+  * Breaking change: use :unless instead of :allow_if
+
 [0.0.4] - 2014-08-23
   * Bugfixes
   * Multiple restrictions for the same action are possible

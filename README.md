@@ -17,7 +17,7 @@ Works with rails 3 and 4 and all versions every ruby 2.
 ```ruby
 class GoodiesController < ApplicationController
   restrict :take
-  restrict :delete, allow_if: :goodie_manager?
+  restrict :delete, unless: :goodie_manager?
 
   def take
     # Grab a goodie
@@ -47,7 +47,7 @@ What that does:
 restrict :all_actions
 ```
 
-This one will apply to all actions on this controller. It takes the `allow_if` option as well.
+This one will apply to all actions on this controller. It takes the `unless` option as well.
 
 ### Configuration
 
@@ -60,7 +60,7 @@ You may set the method that is used to figure out whether a user is signed in or
 
 ## Todo Ideas
 
-* restrict :all_actions, except: [:new], allow_if: 'dsfsdf'
+* restrict :all_actions, except: [:new], unless: 'dsfsdf'
 
 ## Contributing
 

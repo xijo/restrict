@@ -8,8 +8,8 @@ RSpec::Matchers.define :have_restriction_on do |given_action_name|
     end
 
     if @restriction
-      if @given_allow_if
-        @restriction.allow_if == @given_allow_if
+      if @given_unless
+        @restriction.unless == @given_unless
       else
         true
       end
@@ -18,21 +18,21 @@ RSpec::Matchers.define :have_restriction_on do |given_action_name|
     end
   end
 
-  chain :with_allow_if do |given_allow_if|
-    @given_allow_if = given_allow_if
+  chain :unless do |given_unless|
+    @given_unless = given_unless
   end
 
   failure_message_for_should do |actual|
-    if @restriction && @given_allow_if
-      "Expected restriction to call #{@given_allow_if.inspect}, but calls #{@restriction.allow_if.inspect}"
+    if @restriction && @given_unless
+      "Expected restriction to call #{@given_unless.inspect}, but calls #{@restriction.unless.inspect}"
     else
       "Expected to have restriction on #{@given_action_name}, but was not found in #{@given_controller.restrictions.inspect}"
     end
   end
 
   failure_message_for_should_not do |actual|
-    if @given_allow_if
-      "Expected restriction not to call #{@given_allow_if.inspect}, but calls #{@restriction.allow_if.inspect}"
+    if @given_unless
+      "Expected restriction not to call #{@given_unless.inspect}, but calls #{@restriction.unless.inspect}"
     else
       "Expected not to have restriction on #{@given_action_name}, but was found in #{@given_controller.restrictions.inspect}"
     end

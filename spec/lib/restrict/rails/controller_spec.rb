@@ -6,7 +6,7 @@ describe Restrict::Rails::Controller do
 
   before do
     controller.class.restrict :index
-    controller.class.restrict :show, allow_if: :access_allowed?
+    controller.class.restrict :show, unless: :access_allowed?
   end
 
   describe '#restrict' do
@@ -15,7 +15,7 @@ describe Restrict::Rails::Controller do
     end
 
     it 'builds and adds a conditional restriction' do
-      expect(controller).to have_restriction_on(:show).with_allow_if(:access_allowed?)
+      expect(controller).to have_restriction_on(:show).unless(:access_allowed?)
     end
   end
 

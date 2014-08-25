@@ -1,10 +1,10 @@
 module Restrict
   class Restriction
-    attr_accessor :actions, :allow_if
+    attr_accessor :actions, :unless
 
     def initialize(*args)
       options   = args.extract_options!
-      @allow_if = options[:allow_if]
+      @unless = options[:unless]
       @actions  = args
       actions.empty? and raise ArgumentError, "expected actions to restrict, but got #{actions.inspect}"
     end
