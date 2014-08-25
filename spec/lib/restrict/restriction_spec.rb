@@ -7,10 +7,6 @@ describe Restrict::Restriction do
     it 'knows about its actions' do
       expect(restriction.actions).to eq [:show, :edit]
     end
-
-    it 'raises an error if no actions were given' do
-      expect { Restrict::Restriction.new }.to raise_error(ArgumentError)
-    end
   end
 
   describe '#applies_to?' do
@@ -26,8 +22,8 @@ describe Restrict::Restriction do
       expect(restriction).not_to be_applies_to(:index)
     end
 
-    it 'returns true if it concerns :all_actions' do
-      restriction = Restrict::Restriction.new(:all_actions)
+    it 'returns true if it concerns all actions' do
+      restriction = Restrict::Restriction.new
       expect(restriction).to be_applies_to(:foo)
       expect(restriction).to be_applies_to(:bar)
     end

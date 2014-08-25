@@ -3,10 +3,9 @@ module Restrict
     attr_accessor :actions, :unless
 
     def initialize(*args)
-      options   = args.extract_options!
-      @unless = options[:unless]
-      @actions  = args
-      actions.empty? and raise ArgumentError, "expected actions to restrict, but got #{actions.inspect}"
+      options  = args.extract_options!
+      @unless  = options[:unless]
+      @actions = args
     end
 
     def applies_to?(action)
@@ -16,7 +15,7 @@ module Restrict
     private
 
     def applies_to_all_actions?
-      actions.include?(:all_actions)
+      actions.empty?
     end
 
     def applies_to_action?(name)

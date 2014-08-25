@@ -44,7 +44,7 @@ What that does:
 ### Restrict all actions
 
 ```ruby
-restrict :all_actions
+restrict
 ```
 
 This one will apply to all actions on this controller. It takes the `unless` option as well.
@@ -57,10 +57,6 @@ Restrict.config.authentication_validation_method = :admin_session_exists?
 ```
 
 You may set the method that is used to figure out whether a user is signed in or not to whatever you like, however it's default is `:user_signed_in?` which is the most common (devise) method in use.
-
-## Todo Ideas
-
-* restrict :all_actions, except: [:new], unless: 'dsfsdf'
 
 ## Contributing
 

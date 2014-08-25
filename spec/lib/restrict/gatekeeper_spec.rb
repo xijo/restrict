@@ -65,7 +65,7 @@ describe Restrict::Gatekeeper do
 
     context 'with multiple restrictions' do
       before do
-        controller.class.restrict :all_actions
+        controller.class.restrict
         controller.class.restrict :edit, unless: :falsy
       end
 
