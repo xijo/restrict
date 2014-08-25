@@ -4,7 +4,7 @@ RSpec::Matchers.define :have_restriction_on do |given_action_name|
     @given_controller = given_controller
 
     @restriction = given_controller.restrictions.find do |restriction|
-      restriction.concerning?(given_action_name)
+      restriction.applies_to?(given_action_name)
     end
 
     if @restriction

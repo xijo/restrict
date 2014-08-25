@@ -9,17 +9,17 @@ module Restrict
       actions.empty? and raise ArgumentError, "expected actions to restrict, but got #{actions.inspect}"
     end
 
-    def concerning?(action)
-      concerns_action?(action) || concerns_all?
+    def applies_to?(action)
+      applies_to_action?(action) || applies_to_all_actions?
     end
 
     private
 
-    def concerns_all?
+    def applies_to_all_actions?
       actions.include?(:all_actions)
     end
 
-    def concerns_action?(name)
+    def applies_to_action?(name)
       actions.include?(name.to_sym)
     end
   end

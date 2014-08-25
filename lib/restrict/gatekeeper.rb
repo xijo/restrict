@@ -26,7 +26,7 @@ module Restrict
     def concerning_restrictions(controller)
       controller.restrictions or return
       controller.restrictions.select do |restriction|
-        restriction.concerning?(controller.action_name)
+        restriction.applies_to?(controller.action_name)
       end
     end
   end

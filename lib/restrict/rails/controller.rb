@@ -14,6 +14,9 @@ module Restrict
           restrictions << Restrict::Restriction.new(*args)
         end
 
+        # This could happen in included block as well, but often you need
+        # other before filters to happen before you actually check the
+        # restrictions, so lets set it where it is used in the code as well.
         def install_gatekeeper
           return if @gatekeeper_installed
           before_filter :invoke_gatekeeper

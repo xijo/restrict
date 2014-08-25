@@ -13,23 +13,23 @@ describe Restrict::Restriction do
     end
   end
 
-  describe '#concerning?' do
+  describe '#applies_to?' do
     it 'returns true if the given action is contained' do
-      expect(restriction).to be_concerning(:show)
+      expect(restriction).to be_applies_to(:show)
     end
 
     it 'returns true if the given name is a string' do
-      expect(restriction).to be_concerning('show')
+      expect(restriction).to be_applies_to('show')
     end
 
     it 'returns false if the given action name is not contained' do
-      expect(restriction).not_to be_concerning(:index)
+      expect(restriction).not_to be_applies_to(:index)
     end
 
     it 'returns true if it concerns :all_actions' do
       restriction = Restrict::Restriction.new(:all_actions)
-      expect(restriction).to be_concerning(:foo)
-      expect(restriction).to be_concerning(:bar)
+      expect(restriction).to be_applies_to(:foo)
+      expect(restriction).to be_applies_to(:bar)
     end
   end
 end
