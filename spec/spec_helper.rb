@@ -33,6 +33,7 @@ class FakeController
     self.before_filters ||= []
     before_filters << filter
   end
+  singleton_class.send(:alias_method, :before_action, :before_filter)
 end
 
 class ExampleController < FakeController

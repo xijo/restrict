@@ -19,7 +19,7 @@ module Restrict
         # restrictions, so lets set it where it is used in the code as well.
         def install_gatekeeper
           return if @gatekeeper_installed
-          before_filter :invoke_gatekeeper
+          before_action :invoke_gatekeeper
           @gatekeeper_installed = true
         end
       end
