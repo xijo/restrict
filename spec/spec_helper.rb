@@ -1,6 +1,3 @@
-require 'codeclimate-test-reporter'
-CodeClimate::TestReporter.start
-
 require 'simplecov'
 require 'byebug'
 
@@ -13,6 +10,7 @@ SimpleCov.start 'gem'
 
 require 'restrict'
 require 'restrict/rspec/matcher'
+require 'restrict/rspec/shared_example'
 
 RSpec.configure do |config|
   config.after do

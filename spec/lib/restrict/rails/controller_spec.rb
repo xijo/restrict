@@ -17,6 +17,8 @@ describe Restrict::Rails::Controller do
     it 'builds and adds a conditional restriction' do
       expect(controller).to have_restriction_on(:show).unless(:access_allowed?)
     end
+
+    include_examples 'restricts access to', :show, :access_allowed?
   end
 
   describe '#included' do
