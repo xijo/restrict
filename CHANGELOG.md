@@ -1,3 +1,6 @@
+[0.1.0] - 2019-11-25
+  * Support controller inheritance
+
 [0.0.7] - 2014-08-25
   * Breaking change part 2: restrict without action names will now implicitly restrict all actions
   * :all_actions modifier is gone

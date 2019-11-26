@@ -14,7 +14,9 @@ require 'restrict/rspec/shared_example'
 
 RSpec.configure do |config|
   config.after do
-    ExampleController.restrictions = []
+    ExampleController.__send__(:restrict_restrictions).clear
+    InheritingController.__send__(:restrict_restrictions).clear
+    BottomLineController.__send__(:restrict_restrictions).clear
   end
 end
 
@@ -44,4 +46,12 @@ class ExampleController < FakeController
   def truthy
     true
   end
+end
+
+class InheritingController < ExampleController
+  include Restrict::Rails::Controller
+end
+
+class BottomLineController < InheritingController
+  include Restrict::Rails::Controller
 end

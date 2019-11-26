@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Restrict do
-
   describe '#config' do
     it 'returns a configuration' do
       expect(Restrict.config).to be_a Restrict::Configuration
@@ -17,5 +16,4 @@ describe Restrict do
       expect(Restrict.config).to eq Restrict.config
     end
   end
-
 end

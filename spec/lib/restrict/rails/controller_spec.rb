@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Restrict::Rails::Controller do
-
   let(:controller) { ExampleController.new }
 
   before do
@@ -34,4 +33,29 @@ describe Restrict::Rails::Controller do
     end
   end
 
+  describe 'in inherited mode' do
+    let(:base)       { ExampleController.new }
+    let(:controller) { InheritingController.new }
+    let(:child)      { BottomLineController.new }
+
+    before do
+      base.class.restrict       :show, unless: :level1?
+      controller.class.restrict :show, unless: :level2?
+      child.class.restrict      :show, unless: :level3?
+    end
+
+    it 'does not leak restrictions into superclass' do
+      expect(base).to have_restriction_on(:show).unless(:level1?)
+      expect(base).not_to have_restriction_on(:show).unless(:level2?)
+      expect(base).not_to have_restriction_on(:show).unless(:level3?)
+
+      expect(controller).to have_restriction_on(:show).unless(:level1?)
+      expect(controller).to have_restriction_on(:show).unless(:level2?)
+      expect(controller).not_to have_restriction_on(:show).unless(:level3?)
+
+      expect(child).to have_restriction_on(:show).unless(:level1?)
+      expect(child).to have_restriction_on(:show).unless(:level2?)
+      expect(child).to have_restriction_on(:show).unless(:level3?)
+    end
+  end
 end

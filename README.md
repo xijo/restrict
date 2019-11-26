@@ -58,6 +58,15 @@ Restrict.config.authentication_validation_method = :admin_session_exists?
 
 You may set the method that is used to figure out whether a user is signed in or not to whatever you like, however it's default is `:user_signed_in?` which is the most common (devise) method in use.
 
+### Inheritance
+
+A controller will respect all restrictions that are applied to its ancestors.
+
+You may implement a set of rules in a `BaseController` and refine them in subclasses later on.
+
+Please note: it is not possible yet to revert previously added restrictions, that means
+if a restriction on `show` is added in a class and another one in the subclass **BOTH** apply.
+
 ## Contributing
 
 You know how this works and bonus points for feature branches!

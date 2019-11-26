@@ -4,22 +4,21 @@ RSpec::Matchers.define :have_restriction_on do |given_action_name|
     @given_controller = given_controller
 
     @restriction = given_controller.restrictions.find do |restriction|
-      restriction.applies_to?(given_action_name)
+      if restriction.applies_to?(given_action_name) && matching_unless(restriction, @given_unless)
+        restriction
+      end
     end
 
-    if @restriction
-      if @given_unless
-        @restriction.unless == @given_unless
-      else
-        true
-      end
-    else
-      false
-    end
+    !!@restriction
   end
 
   chain :unless do |given_unless|
     @given_unless = given_unless
+  end
+
+  def matching_unless(restriction, given_unless)
+    given_unless or return true
+    restriction.unless == given_unless
   end
 
   failure_message do |actual|
@@ -38,7 +37,6 @@ RSpec::Matchers.define :have_restriction_on do |given_action_name|
     end
   end
 
-  # :nocov:
   def description
     "Checks if a restriction for a given action is defined on the controller"
   end
