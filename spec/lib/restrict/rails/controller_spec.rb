@@ -58,4 +58,22 @@ describe Restrict::Rails::Controller do
       expect(child).to have_restriction_on(:show).unless(:level3?)
     end
   end
+
+  describe 'applies inherited general restrictions additionally to explizit restrictions' do
+    let(:base)       { ExampleController.new }
+    let(:controller) { InheritingController.new }
+
+    before do
+      base.class.restrict              unless: :level1?
+      controller.class.restrict :show, unless: :level2?
+    end
+
+    it 'does not leak restrictions into superclass' do
+      expect(base).to have_restriction_on(:show).unless(:level1?)
+      expect(base).not_to have_restriction_on(:show).unless(:level2?)
+
+      expect(controller).to have_restriction_on(:show).unless(:level1?)
+      expect(controller).to have_restriction_on(:show).unless(:level2?)
+    end
+  end
 end
