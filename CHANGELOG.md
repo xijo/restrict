@@ -1,3 +1,6 @@
+[0.1.1] - 2019-11-26
+  * Bug fix release to actually work in rails ¯\_(ツ)_/¯
+
 [0.1.0] - 2019-11-25
   * Support controller inheritance
 

@@ -3,16 +3,12 @@ module Restrict
     module Controller
       extend ActiveSupport::Concern
 
-      def restrictions
-        inherited_restrictions + self.class.__send__(:restrict_restrictions)
+      def inherited(subclass)
+        subclass.extend Restrict::Rails::Controller
       end
 
-      def inherited_restrictions
-        self.class.ancestors.map do |ancestor|
-          if ancestor.instance_variable_get(:@restrict_gatekeeper_installed)
-            ancestor.__send__(:restrict_restrictions)
-          end
-        end.compact.flatten
+      def restrictions
+        inherited_restrictions + self.class.__send__(:restrict_restrictions)
       end
 
       module ClassMethods
@@ -29,10 +25,6 @@ module Restrict
           @restrictions ||= []
         end
 
-        def inherited(subclass)
-          subclass.include Restrict::Rails::Controller
-        end
-
         # This could happen in included block as well, but often you need
         # other before filters to happen before you actually check the
         # restrictions, so lets set it where it is used in the code as well.
@@ -44,6 +36,14 @@ module Restrict
       end
 
       private
+
+      def inherited_restrictions
+        self.class.ancestors.map do |ancestor|
+          if ancestor.instance_variable_get(:@restrict_gatekeeper_installed)
+            ancestor.__send__(:restrict_restrictions)
+          end
+        end.compact.flatten
+      end
 
       def invoke_gatekeeper
         Restrict::Gatekeeper.new.eye(self)
