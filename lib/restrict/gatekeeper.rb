@@ -15,12 +15,7 @@ module Restrict
 
     def handle_restriction(restriction, controller)
       validate_signed_in(controller)
-
-      if restriction.unless
-        unless controller.__send__(restriction.unless)
-          raise Restrict::AccessDenied, reason: restriction
-        end
-      end
+      restriction.validate(controller)
     end
 
     def concerning_restrictions(controller)

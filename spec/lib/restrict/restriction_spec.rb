@@ -28,4 +28,44 @@ describe Restrict::Restriction do
       expect(restriction).to be_applies_to(:bar)
     end
   end
+
+  describe '#validate' do
+    describe 'with :on option' do
+      let(:controller) { ObjectController.new }
+
+      it 'does not raise if no condition was given' do
+        restriction = Restrict::Restriction.new on: :managed_object
+        expect { restriction.validate(controller) }.not_to raise_error
+      end
+
+      it 'does not raise an error if `on` and `unless` match' do
+        restriction = Restrict::Restriction.new on: :managed_object, unless: :manager_of?
+        expect { restriction.validate(controller) }.not_to raise_error
+      end
+
+      it 'raises an error if `unless` does not work on `on`' do
+        restriction = Restrict::Restriction.new on: :rougue_object, unless: :manager_of?
+        expect { restriction.validate(controller) }.to raise_error(Restrict::AccessDenied)
+      end
+
+      it 'raises an error if `on` is nil' do
+        restriction = Restrict::Restriction.new on: :nil_object, unless: :truthy
+        expect { restriction.validate(controller) }.to raise_error(Restrict::AccessDenied)
+      end
+    end
+
+    describe 'without :on option' do
+      let(:controller) { ExampleController.new }
+
+      it 'does not raise an error if `unless` works' do
+        restriction = Restrict::Restriction.new unless: :truthy
+        expect { restriction.validate(controller) }.not_to raise_error
+      end
+
+      it 'raises an error if `unless` does not work' do
+      restriction = Restrict::Restriction.new unless: :falsy
+        expect { restriction.validate(controller) }.to raise_error(Restrict::AccessDenied)
+      end
+    end
+  end
 end

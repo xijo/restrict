@@ -55,3 +55,22 @@ end
 class BottomLineController < InheritingController
   include Restrict::Rails::Controller
 end
+
+class ObjectController < ExampleController
+  def manager_of?(obj)
+    obj == :managed
+  end
+
+  private
+
+  def managed_object
+    :managed
+  end
+
+  def rougue_object
+    :other
+  end
+
+  def nil_object
+  end
+end

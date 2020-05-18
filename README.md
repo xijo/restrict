@@ -49,6 +49,36 @@ restrict
 
 This one will apply to all actions on this controller. It takes the `unless` option as well.
 
+### Restrict with specific object
+
+One may pass `on` to a `restrict` call in a controller.
+
+If `on` is set, it evaluates the given method.
+If it returns nil, it raises an error.
+If an object is returned, it will be send while evaluating the `unless`
+condition.
+
+Example
+
+```
+class ItemController
+  restrict :show, unless: :manager_of?, on: :load_item
+
+  def show
+  end
+
+  private
+
+  def manager_of?(item)
+    current_user == item.manager
+  end
+
+  def load_item
+    @item = Item.find(params[:id])
+  end
+end
+```
+
 ### Configuration
 
 ```ruby
