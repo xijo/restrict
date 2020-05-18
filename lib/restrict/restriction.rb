@@ -5,7 +5,7 @@ module Restrict
     def initialize(*args)
       @options  = args.extract_options!
       @unless   = @options[:unless]
-      @on       = @options[:on]
+      @on       = @options[:on] || options[:of] || options[:object]
       @actions  = args
     end
 
@@ -14,18 +14,16 @@ module Restrict
     end
 
     def validate(controller)
-      options.has_key?(:unless) or return
+      @unless or return
 
-      if options.has_key?(:on)
-        object = controller.__send__(on) or raise Restrict::AccessDenied, reason: 'object given was #{object.inspect}'
+      unless_args = []
+      if @on
+        object = controller.__send__(on)
+        unless_args << object or raise Restrict::AccessDenied, reason: 'object given was #{object.inspect}'
+      end
 
-        unless controller.__send__(@unless, object)
-          raise Restrict::AccessDenied, reason: self
-        end
-      else
-        unless controller.__send__(@unless)
-          raise Restrict::AccessDenied, reason: self
-        end
+      unless controller.__send__(@unless, *unless_args)
+        raise Restrict::AccessDenied, reason: self
       end
     end
 

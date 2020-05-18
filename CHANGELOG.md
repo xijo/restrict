@@ -1,3 +1,6 @@
+[0.2.0] - 2020-05-18
+  * Implement `:on` parameter for `restrict` calls
+
 [0.1.1] - 2019-11-26
   * Bug fix release to actually work in rails ¯\_(ツ)_/¯
 

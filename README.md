@@ -79,6 +79,8 @@ class ItemController
 end
 ```
 
+Aliases for `on` are: `of`, `object`
+
 ### Configuration
 
 ```ruby

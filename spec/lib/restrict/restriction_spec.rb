@@ -49,8 +49,16 @@ describe Restrict::Restriction do
       end
 
       it 'raises an error if `on` is nil' do
-        restriction = Restrict::Restriction.new on: :nil_object, unless: :truthy
+        restriction = Restrict::Restriction.new on: :nil_object, unless: :manager_of?
         expect { restriction.validate(controller) }.to raise_error(Restrict::AccessDenied)
+      end
+
+      it 'works with aliases' do
+        restriction = Restrict::Restriction.new of: :managed_object, unless: :manager_of?
+        expect { restriction.validate(controller) }.not_to raise_error
+
+        restriction = Restrict::Restriction.new object: :managed_object, unless: :manager_of?
+        expect { restriction.validate(controller) }.not_to raise_error
       end
     end
 
