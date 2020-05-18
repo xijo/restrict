@@ -2,7 +2,7 @@
 
 A rails controller extension, that gives you the possibility to restrict access to your controller actions.
 
-[![Build Status](https://secure.travis-ci.org/xijo/restrict.png?branch=master)](https://travis-ci.org/xijo/restrict) [![Gem Version](https://badge.fury.io/rb/restrict.png)](http://badge.fury.io/rb/restrict) [![Code Climate](https://codeclimate.com/github/xijo/restrict.png)](https://codeclimate.com/github/xijo/restrict) [![Code Climate](https://codeclimate.com/github/xijo/restrict/coverage.png)](https://codeclimate.com/github/xijo/restrict)
+![Specs](https://github.com/xijo/restrict/workflows/Specs/badge.svg) [![Gem Version](https://badge.fury.io/rb/restrict.png)](http://badge.fury.io/rb/restrict) [![Code Climate](https://codeclimate.com/github/xijo/restrict.png)](https://codeclimate.com/github/xijo/restrict) [![Code Climate](https://codeclimate.com/github/xijo/restrict/coverage.png)](https://codeclimate.com/github/xijo/restrict)
 
 ## Installation
 
