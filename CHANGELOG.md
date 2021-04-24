@@ -1,3 +1,6 @@
+[0.2.1] - 2021-04-24
+  * Fix rails autoloading issue (@jaynetics)
+
 [0.2.0] - 2020-05-18
   * Implement `:on` parameter for `restrict` calls
 
