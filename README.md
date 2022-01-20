@@ -10,7 +10,7 @@ A rails controller extension, that gives you the possibility to restrict access 
 
 ## Compatibility
 
-Works with rails 3 and 4 and all versions every ruby 2.
+Works with rails 3+ (tested until 6) and ruby 2+ (tested until 3.0).
 
 ## Usage
 
@@ -60,9 +60,10 @@ condition.
 
 Example
 
-```
+```ruby
 class ItemController
   restrict :show, unless: :manager_of?, on: :load_item
+  # read like: manager_of?(load_item), but obviously evaluated at runtime
 
   def show
   end
@@ -101,4 +102,4 @@ if a restriction on `show` is added in a class and another one in the subclass *
 
 ## Contributing
 
-You know how this works and bonus points for feature branches!
+You know how this works ([WTFPL](LICENSE.txt)) and bonus points for feature branches!
